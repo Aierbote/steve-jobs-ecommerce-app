@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { use, useContext, useEffect } from "react";
 import { AppContext } from "@/ContextProvider";
-import { TContext } from "@/declarations";
+import { Product, TContext } from "@/declarations";
+import { ProductCard } from "@/components/card";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,14 +19,17 @@ export default function Home() {
 			{!products && <p>Loading Products...</p>}
 			{products?.map(
 				({ qty, userId, title, description, id, price, image, thumbnail }) => (
-					<div key={id}>
-						<img src={thumbnail} alt={title} />
-						<h3>{title}</h3>
-						<p>{description}</p>
-						<p>
-							<b>Price: {price}</b>
-						</p>
-					</div>
+					<ProductCard
+						key={id}
+						qty={qty}
+						userId={userId}
+						title={title}
+						description={description}
+						id={id}
+						price={price}
+						image={image}
+						thumbnail={thumbnail}
+					/>
 				)
 			)}
 		</>
