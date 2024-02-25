@@ -12,6 +12,7 @@ export const AppContext = createContext<TContext>({
 	getProductQuantity: () => 0,
 	loading: false,
 	error: "",
+	counterInCart: 0,
 });
 
 interface Props {
@@ -24,8 +25,10 @@ export function ContextProvider({ children }: Props) {
 	const [products, setProducts] = useState<TContext["products"]>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
+	const [counterInCart, setCounterInCart] = useState(0);
 
 	const addToCart = (idProduct: Product["id"]) => {
+		setCounterInCart(counterInCart + 1);
 		const found = cart.find((el) => el.id === idProduct);
 		if (!!found) {
 			const newCart = cart.map((el) => {
@@ -39,6 +42,7 @@ export function ContextProvider({ children }: Props) {
 	};
 
 	const removeFromCart = (idProduct: Product["id"]) => {
+		setCounterInCart(counterInCart - 1);
 		const newCart = cart.reduce((acc, el) => {
 			if (el.id === idProduct) {
 				if (el.quantity > 1) {
@@ -76,6 +80,7 @@ export function ContextProvider({ children }: Props) {
 
 	const done = () => {
 		setPaid(false);
+		setCounterInCart(0);
 	};
 
 	const getProductQuantity = (idProduct: Product["id"]) => {
@@ -99,6 +104,7 @@ export function ContextProvider({ children }: Props) {
 				loading,
 				error,
 				done,
+				counterInCart,
 			}}
 		>
 			{children}
