@@ -7,6 +7,7 @@ const cardStyle = {
 	height: "26rem",
 	border: "0.0625rem solid #00000029",
 	borderRadius: "1rem",
+	padding: "1.5rem 1rem",
 
 	// &:hover {
 	//   boxShadow: "0 0 10px 0 #00000029",
@@ -60,9 +61,11 @@ export function ProductCard({
 }
 
 export function ProductsList({ products }: { products: Product[] | null }) {
+	const { loading } = useContext(AppContext);
+
 	return (
 		<div style={gridStyle}>
-			{!products && <p>Loading Products...</p>}
+			{loading && <p>Loading Products...</p>}
 			{products?.map(
 				({ qty, userId, title, description, id, price, image, thumbnail }) => (
 					<ProductCard
