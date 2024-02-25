@@ -9,6 +9,10 @@ const cardStyle = {
 	borderRadius: "1rem",
 	padding: "1.5rem 1rem",
 
+	display: "grid",
+	gridTemplateColumns: "repeat(2, 1fr)",
+	gridTemplateRows: "3fr repeat(2, 1fr)",
+
 	// &:hover {
 	//   boxShadow: "0 0 10px 0 #00000029",
 	// }
@@ -39,23 +43,27 @@ export function ProductCard({
 
 	return (
 		<div key={id} style={cardStyle}>
-			<img src={thumbnail} alt={title} />
+			<figure>
+				<img src={thumbnail} alt={title} />
+			</figure>
 			<h3>{title}</h3>
-			<p>{description}</p>
-			<p>
-				<b>Price: {price.toFixed(2)}€</b>
-			</p>
-			<p>
-				<b>In stock: {qty}</b>
-			</p>
-			<button
-				onClick={() => {
-					console.log("addToCart", id);
-					addToCart(id);
-				}}
-			>
-				Add To Cart
-			</button>
+			<p style={{ gridArea: "2 / 1 / 3 / 3" }}>{description}</p>
+			<div style={{ gridArea: "3 / 1 / 4 / 3", textAlign: "end" }}>
+				<p>
+					<b>Price: {price.toFixed(2)}€</b>
+				</p>
+				<p>
+					<b>In stock: {qty}</b>
+				</p>
+				<button
+					onClick={() => {
+						console.log("addToCart", id);
+						addToCart(id);
+					}}
+				>
+					Add To Cart
+				</button>
+			</div>
 		</div>
 	);
 }
