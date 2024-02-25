@@ -7,6 +7,7 @@ export const AppContext = createContext<TContext>({
 	products: null,
 	addToCart: () => {},
 	removeFromCart: () => {},
+	removeTheseFromCart: () => {},
 	pay: () => {},
 	done: () => {},
 	getProductQuantity: () => 0,
@@ -68,6 +69,20 @@ export function ContextProvider({ children }: Props) {
 		setTotal(total - product!.price);
 	};
 
+	const removeTheseFromCart = (idProduct: Product["id"]) => {
+		const newCart = cart.filter((el) => {
+			if (el.id === idProduct) {
+				// NOTE : I WISH I didn't need to find the product infos AGAIN, I already know its inside the cart.
+				const product = products?.find((el) => el.id === idProduct);
+				setTotal(total - product!.price * el.quantity);
+
+				return false;
+			}
+			return true;
+		});
+		setCart(newCart);
+	};
+
 	const pay = () => {
 		setPaid(true);
 		setCart([]);
@@ -109,6 +124,7 @@ export function ContextProvider({ children }: Props) {
 				products,
 				addToCart,
 				removeFromCart,
+				removeTheseFromCart,
 				getProductQuantity,
 				pay,
 				loading,

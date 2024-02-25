@@ -105,7 +105,7 @@ export function CartCard({
 	image,
 	thumbnail,
 }: Product) {
-	const { removeFromCart } = useContext(AppContext);
+	const { removeFromCart, removeTheseFromCart } = useContext(AppContext);
 
 	return (
 		<>
@@ -135,7 +135,7 @@ export function CartCard({
 							onClick={() => {
 								console.log("removeTheseFromCart", id);
 								// TODO :
-								// removeTheseFromCart(id);
+								removeTheseFromCart(id);
 							}}
 						>
 							Remove All

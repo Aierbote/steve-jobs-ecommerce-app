@@ -22,6 +22,7 @@ export interface TContext {
 	error: string;
 	addToCart: (idProduct: Product["id"]) => void;
 	removeFromCart: (idProduct: Product["id"]) => void;
+	removeTheseFromCart: (idProduct: Product["id"]) => void;
 	pay: () => void;
 	done: () => void;
 	getProductQuantity: (idProduct: Product["id"]) => number;
