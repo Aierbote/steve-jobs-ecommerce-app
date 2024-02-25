@@ -13,6 +13,7 @@ export const AppContext = createContext<TContext>({
 	loading: false,
 	error: "",
 	counterInCart: 0,
+	total: 0,
 });
 
 interface Props {
@@ -26,6 +27,7 @@ export function ContextProvider({ children }: Props) {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const [counterInCart, setCounterInCart] = useState(0);
+	const [total, setTotal] = useState(0);
 
 	const addToCart = (idProduct: Product["id"]) => {
 		setCounterInCart(counterInCart + 1);
@@ -39,6 +41,10 @@ export function ContextProvider({ children }: Props) {
 		} else {
 			setCart([...cart, { id: idProduct, quantity: 1 }]);
 		}
+
+		// in case the cart is empty or not, I need to find back the product and its infos.
+		const product = products?.find((el) => el.id === idProduct);
+		setTotal(total + product!.price);
 	};
 
 	const removeFromCart = (idProduct: Product["id"]) => {
@@ -56,6 +62,10 @@ export function ContextProvider({ children }: Props) {
 			}
 		}, [] as Cart);
 		setCart(newCart);
+
+		// NOTE : I WISH I didn't need to find the product infos AGAIN, I already know its inside the cart.
+		const product = products?.find((el) => el.id === idProduct);
+		setTotal(total - product!.price);
 	};
 
 	const pay = () => {
@@ -105,6 +115,7 @@ export function ContextProvider({ children }: Props) {
 				error,
 				done,
 				counterInCart,
+				total,
 			}}
 		>
 			{children}

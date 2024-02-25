@@ -1,3 +1,14 @@
+import { AppContext } from "@/ContextProvider";
+import { CartList } from "@/components/card";
+import { useContext } from "react";
+
 export default function Cart() {
-  return <h1>Cart</h1>;
+	const { cart, removeFromCart, total } = useContext(AppContext);
+	return (
+		// TODO : show navbar here too with router
+		<>
+			<h1>Cart</h1>
+			<CartList />
+		</>
+	);
 }

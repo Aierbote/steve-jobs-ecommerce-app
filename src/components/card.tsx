@@ -1,5 +1,5 @@
 import { AppContext } from "@/ContextProvider";
-import { Product } from "@/declarations";
+import { Cart, Product } from "@/declarations";
 import { useContext } from "react";
 
 const cardStyle = {
@@ -29,6 +29,7 @@ const gridStyle = {
 	rowGap: "1rem",
 };
 
+// card to show in the products list in the home
 export function ProductCard({
 	qty,
 	userId,
@@ -90,5 +91,92 @@ export function ProductsList({ products }: { products: Product[] | null }) {
 				)
 			)}
 		</div>
+	);
+}
+
+// card to show in the cart
+export function CartCard({
+	qty,
+	userId,
+	title,
+	description,
+	id,
+	price,
+	image,
+	thumbnail,
+}: Product) {
+	const { removeFromCart } = useContext(AppContext);
+
+	return (
+		<>
+			<div key={id} style={cardStyle}>
+				<figure>
+					<img src={thumbnail} alt={title} />
+				</figure>
+				<h3>{title}</h3>
+				<p style={{ gridArea: "2 / 1 / 3 / 3" }}>{description}</p>
+				<div style={{ gridArea: "3 / 1 / 4 / 3", textAlign: "end" }}>
+					<p>
+						<b>Price: {price.toFixed(2)}€</b>
+					</p>
+					<p>
+						<b>Ordering: {qty}</b>
+					</p>
+					<div>
+						<button
+							onClick={() => {
+								console.log("removeFromCart", id);
+								removeFromCart(id);
+							}}
+						>
+							Remove One
+						</button>
+						<button
+							onClick={() => {
+								console.log("removeTheseFromCart", id);
+								// TODO :
+								// removeTheseFromCart(id);
+							}}
+						>
+							Remove All
+						</button>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
+
+export function CartList() {
+	const { cart, products, total } = useContext(AppContext);
+
+	return (
+		<>
+			<h1>Cart</h1>
+			<h3>Total: {total.toFixed(2)}€</h3>
+			<ul style={gridStyle}>
+				{cart?.map(({ id, quantity }) => {
+					const product = products?.find((el) => el.id === id);
+
+					if (!product) {
+						return null;
+					}
+
+					return (
+						<CartCard
+							key={id}
+							qty={quantity}
+							userId={product.userId}
+							title={product.title}
+							description={product.description}
+							id={id}
+							price={product.price}
+							image={product.image}
+							thumbnail={product.thumbnail}
+						/>
+					);
+				})}
+			</ul>
+		</>
 	);
 }
