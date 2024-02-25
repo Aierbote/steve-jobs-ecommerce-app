@@ -148,12 +148,10 @@ export function CartCard({
 }
 
 export function CartList() {
-	const { cart, products, total } = useContext(AppContext);
+	const { cart, products } = useContext(AppContext);
 
 	return (
 		<>
-			<h1>Cart</h1>
-			<h3>Total: {total.toFixed(2)}€</h3>
 			<ul style={gridStyle}>
 				{cart?.map(({ id, quantity }) => {
 					const product = products?.find((el) => el.id === id);

@@ -75,6 +75,7 @@ export function ContextProvider({ children }: Props) {
 				// NOTE : I WISH I didn't need to find the product infos AGAIN, I already know its inside the cart.
 				const product = products?.find((el) => el.id === idProduct);
 				setTotal(total - product!.price * el.quantity);
+				setCounterInCart(counterInCart - el.quantity);
 
 				return false;
 			}
@@ -106,6 +107,7 @@ export function ContextProvider({ children }: Props) {
 	const done = () => {
 		setPaid(false);
 		setCounterInCart(0);
+		setTotal(0);
 	};
 
 	const getProductQuantity = (idProduct: Product["id"]) => {
