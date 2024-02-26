@@ -28,4 +28,6 @@ export interface TContext {
 	getProductQuantity: (idProduct: Product["id"]) => number;
 	counterInCart: number;
 	total: number;
+	getProduct: (idProduct: Product["id"]) => void;
+	detailProduct: Product | null;
 }

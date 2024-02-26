@@ -15,6 +15,8 @@ export const AppContext = createContext<TContext>({
 	error: "",
 	counterInCart: 0,
 	total: 0,
+	getProduct: async () => {},
+	detailProduct: {} as Product,
 });
 
 interface Props {
@@ -29,6 +31,7 @@ export function ContextProvider({ children }: Props) {
 	const [error, setError] = useState<string>("");
 	const [counterInCart, setCounterInCart] = useState(0);
 	const [total, setTotal] = useState(0);
+	const [detailProduct, setDetailProduct] = useState<Product | null>(null);
 
 	const addToCart = (idProduct: Product["id"]) => {
 		setCounterInCart(counterInCart + 1);
@@ -89,6 +92,21 @@ export function ContextProvider({ children }: Props) {
 		setCart([]);
 	};
 
+	const getProduct = async (id: number) => {
+		try {
+			const response = await fetch(
+				`https://mockend.up.railway.app/api/products/${id}`
+			);
+			const data = await response.json();
+			setDetailProduct(data);
+		} catch (error: any) {
+			setError(error.message);
+		}
+	};
+
+	// const useProduct = (id: number) => {
+	// }
+
 	const getProducts = async () => {
 		setLoading(true);
 		try {
@@ -134,6 +152,8 @@ export function ContextProvider({ children }: Props) {
 				done,
 				counterInCart,
 				total,
+				getProduct,
+				detailProduct,
 			}}
 		>
 			{children}
