@@ -43,7 +43,7 @@ export function ContextProvider({ children }: Props) {
 			setCart([...cart, { id: idProduct, quantity: 1 }]);
 		}
 
-		// in case the cart is empty or not, I need to find back the product and its infos.
+		// NOTE : in case the cart is empty or not, I need to find back the product and its infos.
 		const product = products?.find((el) => el.id === idProduct);
 		setTotal(total + product!.price);
 	};

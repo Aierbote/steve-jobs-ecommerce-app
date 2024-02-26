@@ -19,8 +19,10 @@ export default function Cart() {
 					done();
 				}}
 			>
-				{!counterInCart && <span>{"Cart is empty"}</span>}
-				{counterInCart && <Link href={"/success"}>Proceed With Purchase</Link>}
+				{!counterInCart && <span>Cart is empty</span>}
+				{!!counterInCart && (
+					<Link href={"/success"}>Proceed With Purchase</Link>
+				)}
 			</button>
 			<CartList />
 		</>
