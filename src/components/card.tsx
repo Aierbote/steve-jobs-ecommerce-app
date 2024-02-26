@@ -1,7 +1,6 @@
 import { AppContext } from "@/ContextProvider";
 import { Cart, Product } from "@/declarations";
 import { useContext } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const cardStyle = {
@@ -58,7 +57,7 @@ export function ProductCard({
 				<p>
 					<b>In stock: {qty}</b>
 				</p>
-				<Link href={`products/${id}`}>
+				<Link href="/product/[id]" as={`product/${id}`}>
 					<button>Product details</button>
 				</Link>
 				<button
