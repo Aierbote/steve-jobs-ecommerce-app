@@ -60,7 +60,8 @@ jobs:
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
           #
           # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: next
+          ### NOTE : FIXME : Trying to fix the "next export" issue.
+          # static_site_generator: next
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -78,8 +79,8 @@ jobs:
       ### Uncomment the following lines if you want to export your site as static HTML
       ### and upload it to GitHub Pages.
       ### NOTE : In my case, I couldn't use this because I have a dynamic site with fetches inside components.
-      # - name: Static HTML export with Next.js
-      #   run: ${{ steps.detect-package-manager.outputs.runner }} next export
+      - name: Static HTML export with Next.js
+        run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
