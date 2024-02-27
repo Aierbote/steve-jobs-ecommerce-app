@@ -51,3 +51,14 @@ Route (pages)                             Size     First Load JS
 ```
 
 SO, I'm going to check if this works, by committin-pushing this simple file here on remote repo.
+
+It still gets an error during the build in the Actions.
+
+So I decided to prove the [basic steps of using just `gh-pages`](https://blog.seancoughlin.me/deploying-to-github-pages-using-gh-pages). But of course on the github settings I switched the source of `Build and deployment`from **GitHub Actions** **Deploy from a branch**, which JUST GAVE ME a static page, which cannot be generated dynamically (it can't even show the Product Cards without the fetched details from API).
+
+So, I switched back to select **GitHub Actions**, and decided to remove the two scripts adviced to use the static "gh-pages" branch
+
+```json
+		"predeploy": "next build",
+		"deploy": "gh-pages -d out",
+```
