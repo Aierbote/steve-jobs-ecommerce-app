@@ -12,8 +12,9 @@
  * @type {import('next').NextConfig}
 */
 const nextConfig = {
-  output: 'export',
+  // output: 'export', // commented out as suggested by Copilot Chat
   basePath: "/steve-jobs-ecommerce-app",
+  assetPrefix: "/steve-jobs-ecommerce-app/",
   reactStrictMode: true,
 
   // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`

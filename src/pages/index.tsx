@@ -12,6 +12,7 @@ export default function Home() {
 	useEffect(() => {}, [products]);
 	return (
 		<>
+			<p>{`Where is the API KEY from? ${process.env.API_KEY_TEST}`}</p>
 			<NavBar />
 			<h1>Home</h1>
 			<h2>Our Products</h2>
