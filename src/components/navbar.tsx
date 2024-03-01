@@ -1,9 +1,11 @@
 import { AppContext } from "@/ContextProvider";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 
 export function NavBar() {
 	const { counterInCart } = useContext(AppContext);
+	const router = useRouter();
 
 	return (
 		<nav>
@@ -16,8 +18,12 @@ export function NavBar() {
 				</li>
 			</ul>
 			<div>
-				<button>
-					<Link href="/cart">Cart {counterInCart}</Link>
+				<button
+					onClick={() => {
+						router.push("/cart");
+					}}
+				>
+					<a>Cart {counterInCart}</a>
 				</button>
 			</div>
 		</nav>
