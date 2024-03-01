@@ -89,7 +89,6 @@ export function ContextProvider({ children }: Props) {
 
 	const pay = () => {
 		setPaid(true);
-		setCart([]);
 	};
 
 	const getProduct = async (id: number) => {
@@ -123,9 +122,11 @@ export function ContextProvider({ children }: Props) {
 	};
 
 	const done = () => {
+		console.log("Completing purchase");
 		setPaid(false);
 		setCounterInCart(0);
 		setTotal(0);
+		setCart([]);
 	};
 
 	const getProductQuantity = (idProduct: Product["id"]) => {

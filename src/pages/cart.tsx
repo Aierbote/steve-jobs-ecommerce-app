@@ -1,13 +1,13 @@
 import { AppContext } from "@/ContextProvider";
 import { CartList } from "@/components/card";
-import { redirect } from "next/dist/server/api-utils";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 
 export default function Cart() {
-	const { counterInCart, total, pay, done } = useContext(AppContext);
+	const { counterInCart, total, pay } = useContext(AppContext);
+	const router = useRouter();
+
 	return (
-		// TODO : show navbar here too with router
 		<>
 			<h1>Cart</h1>
 			<h3>Total: {total.toFixed(2)}€</h3>
@@ -16,13 +16,11 @@ export default function Cart() {
 				onClick={() => {
 					console.log("Proceeding with payment");
 					pay();
-					done();
+					router.push("/success");
 				}}
 			>
 				{!counterInCart && <span>Cart is empty</span>}
-				{!!counterInCart && (
-					<Link href={"/success"}>Proceed With Purchase</Link>
-				)}
+				{!!counterInCart && "Proceed With Purchase"}
 			</button>
 			<CartList />
 		</>
